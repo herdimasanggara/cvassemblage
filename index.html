@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Assemblage</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: "Times New Roman", Times, serif;
+            display: flex;
+        }
+
+        .column {
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .about {
+            background-color: #ffffff;
+            border-right: 1px solid #ddd;
+            flex: 1;
+        }
+
+        .collection {
+            background-color: #ffffff;
+            border-right: 1px solid #ddd;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            flex: 2;
+        }
+
+        .collection img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .caption {
+            font-size: 12px;
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        .dossier {
+            background-color: #ffffff;
+            flex: 1;
+        }
+
+        .button {
+            margin-top: 20px;
+            padding: 10px;
+        }
+
+        .dossier-output {
+            margin-top: 20px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .generated-list {
+            margin-top: 20px;
+            list-style-type: decimal;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Leftmost Column: About Page -->
+    <div class="column about">
+        <h2>CV Assemblage</h2>
+        <p>
+            CV Assemblage interrogates the ontological frameworks that underpin institutional legitimacy and the commodification of academic labor. Each work, whether minimal or absurd, occupies a liminal space where curation becomes a performative act—a critique of the hegemonic metrics that dictate scholarly and artistic validation.
+        </p>
+        <p>
+            Situated at the intersection of academia and praxis, this collective project mobilizes the discourse of art to destabilize entrenched paradigms. These works transcend mere objects, functioning as interstitial interventions that disrupt the dialectics of form and content, challenging the tenure dossier as an instrument of professional valorization.
+        </p>
+        <p>
+            In subverting the normative expectations of scholarly achievement, CV Assemblage posits a radical reimagining of the cultural capital assigned to artistic labor, underscoring the inherent absurdity within institutional rituals of recognition and validation. This project playfully critiques the tenure dossier as a superficial resume, where the perceived impact is often exaggerated for the sake of adding another line, highlighting the performative nature of self-advocacy within academic contexts.
+        </p>
+        <p><strong>Guest Curator:</strong> Random Curator Name</p>
+        <p><strong>Artists:</strong> Artist Name 1, Artist Name 2, Artist Name 3, Artist Name 4, Artist Name 5</p>
+        <button class="button" onclick="document.getElementById('fileInput').click();">Add a Piece</button>
+        <input type="file" id="fileInput" accept=".jpg, .png" style="display: none;">
+    </div>
+
+    <!-- Center Column: Image Collection -->
+    <div class="column collection">
+        <div>
+            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image 1">
+            <div class="caption">Untitled, 2024</div>
+        </div>
+        <div>
+            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image 2">
+            <div class="caption">Untitled, 2024</div>
+        </div>
+        <div>
+            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image 3">
+            <div class="caption">Untitled, 2024</div>
+        </div>
+        <div>
+            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image 4">
+            <div class="caption">Untitled, 2024</div>
+        </div>
+        <div>
+            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image 5">
+            <div class="caption">Untitled, 2024</div>
+        </div>
+        <div>
+            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image 6">
+            <div class="caption">Untitled, 2024</div>
+        </div>
+        <div>
+            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image 7">
+            <div class="caption">Untitled, 2024</div>
+        </div>
+        <div>
+            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image 8">
+            <div class="caption">Untitled, 2024</div>
+        </div>
+        <div>
+            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image 9">
+            <div class="caption">Untitled, 2024</div>
+        </div>
+        <div>
+            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image 10">
+            <div class="caption">Untitled, 2024</div>
+        </div>
+        <div>
+            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image 11">
+            <div class="caption">Untitled, 2024</div>
+        </div>
+        <div>
+            <img src="https://via.placeholder.com/300x200" alt="Placeholder Image 12">
+            <div class="caption">Untitled, 2024</div>
+        </div>
+    </div>
+
+    <!-- Rightmost Column: Dossier Generator -->
+    <div class="column dossier">
+        <h2>Create an Entry for Your Tenure Dossier or Resume</h2>
+        <button class="button" onclick="generateDossierLine()">Generate Line</button>
+        <div id="dossierOutput" class="dossier-output"></div>
+        <ul id="generatedList" class="generated-list"></ul>
+    </div>
+
+    <script>
+        let counter = 1;
+
+        function generateDossierLine() {
+            const adjectives = ["Transcendent", "Ephemeral", "Dialectical", "Interdisciplinary", "Ontological", "Spectral", "Temporal", "Fragmented", "Liminal", "Reflexive"];
+            const nouns = ["Convergence", "Assemblage", "Narrative", "Disruption", "Dialogues", "Intervention", "Praxis", "Paradox", "Iteration", "Phenomenon"];
+            const extraNouns = ["Synthesis", "Metamorphosis", "Continuum", "Collaboration"];
+            const currentYear = new Date().getFullYear();
+
+            const title = `${adjectives[Math.floor(Math.random() * adjectives.length)]} ${nouns[Math.floor(Math.random() * nouns.length)]} ${extraNouns[Math.floor(Math.random() * extraNouns.length)]}, Online, ${currentYear}`;
+            
+            document.getElementById('dossierOutput').textContent = title;
+
+            const listItem = document.createElement('li');
+            listItem.textContent = title;
+            document.getElementById('generatedList').appendChild(listItem);
+
+            counter++;
+        }
+
+        // Set current year for captions
+        document.querySelectorAll('.caption').forEach(caption => {
+            const currentYear = new Date().getFullYear();
+            caption.textContent = `Untitled, ${currentYear}`;
+        });
+    </script>
+
+</body>
+</html>
